@@ -1,0 +1,8 @@
+spring:
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+  flyway:
+    enabled: false
+    baseline-on-migrate: false

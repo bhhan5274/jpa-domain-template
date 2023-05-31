@@ -1,0 +1,3 @@
+rootProject.name = 'jpa-domain-template'
+include 'food'
+
