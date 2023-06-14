@@ -1,6 +1,7 @@
 package io.github.bhhan.shop.web;
 
 import io.github.bhhan.common.money.domain.Money;
+import io.github.bhhan.shop.usecase.ShopBillingInfo;
 import io.github.bhhan.shop.usecase.ShopService;
 import io.github.bhhan.shop.usecase.dto.ShopDto;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,12 @@ import javax.validation.Valid;
 @RequestMapping("/v1/shops")
 public class ShopController {
     private final ShopService shopService;
+    private final ShopBillingInfo shopBillingInfo;
+
+    @GetMapping("/{shopId}/info")
+    public ShopDto.ShopCommissionInfo shopInfo(@PathVariable Long shopId) {
+        return shopBillingInfo.findCommissionByShopId(shopId);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

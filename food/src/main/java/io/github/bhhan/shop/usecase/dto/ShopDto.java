@@ -7,7 +7,6 @@ import lombok.*;
 public class ShopDto {
     @Getter
     @Setter
-    @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     public static class ShopReq {
@@ -15,5 +14,16 @@ public class ShopDto {
         private boolean open;
         private Money minOrderAmount;
         private Ratio commissionRate;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class ShopCommissionInfo {
+        private Long shopId;
+        private String name;
+        private Money commission;
     }
 }

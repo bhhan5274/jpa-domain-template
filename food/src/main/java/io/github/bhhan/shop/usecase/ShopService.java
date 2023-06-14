@@ -13,10 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ShopService {
     private final ShopRepository shopRepository;
-    private final ShopMapper shopMapper;
 
     public Long addShop(ShopDto.ShopReq shopReq) {
-        Shop shop = shopMapper.fromShopReq(shopReq);
+        Shop shop = ShopStructMapper.INSTANCE.toShop(shopReq);
         return shopRepository.save(shop).getId();
     }
 

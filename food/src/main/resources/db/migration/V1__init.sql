@@ -1,13 +1,13 @@
 /* Menu */
-create table menus
+create table `menus`
 (
-    menu_id     bigint       not null auto_increment,
+    `menu_id`   bigint       not null auto_increment comment '메뉴 ID',
     description text         not null,
-    name        varchar(255) not null,
+    `name`      varchar(255) not null comment '메뉴 이름',
     shop_id     bigint       not null,
     primary key (menu_id),
     unique key ux_name (name),
-    index         ix_shop_id (shop_id)
+    index       ix_shop_id (shop_id)
 ) engine=InnoDB;
 
 create table option_group_specs
@@ -22,7 +22,7 @@ create table option_group_specs
 ) engine=InnoDB;
 
 alter table option_group_specs
-add constraint fk_menu_id foreign key (menu_id) references menus(menu_id);
+    add constraint fk_menu_id foreign key (menu_id) references menus (menu_id) on delete cascade;
 
 create table option_specs
 (
@@ -35,7 +35,7 @@ create table option_specs
 ) engine=InnoDB;
 
 alter table option_specs
-add constraint fk_option_group_spec_id foreign key (option_group_spec_id) references option_group_specs(option_group_spec_id);
+    add constraint fk_option_group_spec_id foreign key (option_group_spec_id) references option_group_specs (option_group_spec_id) on delete cascade;
 
 
 /* Shop */

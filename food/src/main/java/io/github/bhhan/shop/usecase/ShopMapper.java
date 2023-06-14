@@ -14,4 +14,6 @@ public class ShopMapper {
                 .commissionRate(shopReq.getCommissionRate())
                 .build();
     }
+
+
 }

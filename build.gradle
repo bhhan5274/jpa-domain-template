@@ -25,6 +25,11 @@ subprojects {
         mavenLocal()
 
         dependencies {
+            implementation "org.mapstruct:mapstruct:$mapStructVersion"
+            annotationProcessor "org.mapstruct:mapstruct-processor:$mapStructVersion"
+            implementation "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+            annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+
             compileOnly "org.projectlombok:lombok:$lombokVersion"
             annotationProcessor "org.projectlombok:lombok:$lombokVersion"
         }

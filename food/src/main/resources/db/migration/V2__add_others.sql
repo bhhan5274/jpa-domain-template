@@ -42,7 +42,7 @@ create table order_line_items
 ) engine=InnoDB;
 
 alter table order_line_items
-add constraint fk_order_id foreign key (order_id) references orders (order_id);
+    add constraint fk_order_id foreign key (order_id) references orders (order_id) on delete cascade;
 
 create table order_option_groups
 (
@@ -53,7 +53,7 @@ create table order_option_groups
 ) engine=InnoDB;
 
 alter table order_option_groups
-add constraint fk_order_line_item_id foreign key (order_line_item_id) references order_line_items (order_line_item_id);
+    add constraint fk_order_line_item_id foreign key (order_line_item_id) references order_line_items (order_line_item_id) on delete cascade;
 
 create table order_options
 (
@@ -65,4 +65,4 @@ create table order_options
 ) engine=InnoDB;
 
 alter table order_options
-add constraint fk_order_option_group_id foreign key (order_option_group_id) references order_option_groups (order_option_group_id);
+    add constraint fk_order_option_group_id foreign key (order_option_group_id) references order_option_groups (order_option_group_id) on delete cascade;

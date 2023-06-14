@@ -1,4 +1,6 @@
-apply plugin: "org.springframework.boot"
+plugins {
+    id "com.ewerk.gradle.plugins.querydsl" version "$queryDslPluginVersion"
+}
 
 group 'io.github.bhhan'
 version '0.0.1.RELEASE'
@@ -10,7 +12,25 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
     implementation "org.flywaydb:flyway-core:6.4.2"
     implementation 'javax.xml.bind:jaxb-api:2.3.0'
+    implementation "com.querydsl:querydsl-jpa:$queryDslVersion"
+    annotationProcessor "com.querydsl:querydsl-apt:$queryDslVersion"
     runtimeOnly "mysql:mysql-connector-java:$mysqlConnectorVersion"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+}
+
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+sourceSets {
+    main.java.srcDir querydslDir
+}
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
 }

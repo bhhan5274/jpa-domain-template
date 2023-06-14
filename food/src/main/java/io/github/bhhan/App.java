@@ -1,5 +1,6 @@
 package io.github.bhhan;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -7,6 +8,9 @@ import org.springframework.context.event.ApplicationEventMulticaster;
 import org.springframework.context.event.SimpleApplicationEventMulticaster;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @SpringBootApplication
 public class App {
@@ -29,5 +33,13 @@ public class App {
         threadPoolTaskExecutor.setThreadNamePrefix("eventExecutor-");
         threadPoolTaskExecutor.afterPropertiesSet();
         return threadPoolTaskExecutor;
+    }
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Bean
+    public JPAQueryFactory queryFactory() {
+        return new JPAQueryFactory(entityManager);
     }
 }

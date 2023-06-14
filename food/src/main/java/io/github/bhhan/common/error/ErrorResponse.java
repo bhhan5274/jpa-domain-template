@@ -16,6 +16,7 @@ public class ErrorResponse {
     private String message;
     private int status;
     private String code;
+    @Builder.Default
     private List<FieldError> errors = new ArrayList<>();
 
     public ErrorResponse setMessage(String message){

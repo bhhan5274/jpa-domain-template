@@ -15,14 +15,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MenuService {
     private final MenuRepository menuRepository;
-    private final MenuMapper menuMapper;
 
     public Menu getMenu(Long menuId) {
         return findMenuById(menuId);
     }
 
     public MenuDto.MenuId addMenu(MenuDto.MenuReq menuReq){
-        return new MenuDto.MenuId(menuRepository.save(menuMapper.fromMenuReq(menuReq)).getId());
+        return new MenuDto.MenuId(menuRepository.save(MenuStructMapper.INSTANCE.toMenu(menuReq)).getId());
     }
 
     public void deleteMenu(Long menuId) {
@@ -43,12 +42,12 @@ public class MenuService {
 
     public boolean addOptionGroupSpecification(Long menuId, MenuDto.OptionGroupSpecificationReq optionGroupSpecificationReq) {
         Menu menu = findMenuFromOptimisticMode(menuId);
-        return menu.addOptionGroupSpecification(menuMapper.fromOptionGroupSpecificationReq(optionGroupSpecificationReq));
+        return menu.addOptionGroupSpecification(MenuStructMapper.INSTANCE.toOptionGroupSpecification(optionGroupSpecificationReq));
     }
 
     public void updateOptionGroupSpecification(Long menuId, Long optionGroupSpecId, MenuDto.OptionGroupSpecificationReq optionGroupSpecificationReq) {
         Menu menu = findMenuFromOptimisticMode(menuId);
-        menu.updateOptionGroupSpecification(optionGroupSpecId, menuMapper.fromOptionGroupSpecificationReq(optionGroupSpecificationReq));
+        menu.updateOptionGroupSpecification(optionGroupSpecId, MenuStructMapper.INSTANCE.toOptionGroupSpecification(optionGroupSpecificationReq));
     }
 
     public boolean deleteOptionGroupSpecification(Long menuId, Long optionGroupSpecId) {
@@ -58,12 +57,12 @@ public class MenuService {
 
     public boolean addOptionSpecification(Long menuId, Long optionGroupSpecId, MenuDto.OptionSpecificationReq optionSpecificationReq) {
         Menu menu = findMenuFromOptimisticMode(menuId);
-        return menu.addOptionSpecification(optionGroupSpecId, menuMapper.fromOptionSpecificationReq(optionSpecificationReq));
+        return menu.addOptionSpecification(optionGroupSpecId, MenuStructMapper.INSTANCE.toOptionSpecification(optionSpecificationReq));
     }
 
     public void updateOptionSpecification(Long menuId, Long optionGroupSpecId, Long optionSpecId, MenuDto.OptionSpecificationReq optionSpecificationReq) {
         Menu menu = findMenuFromOptimisticMode(menuId);
-        menu.updateOptionSpecification(optionGroupSpecId, optionSpecId, menuMapper.fromOptionSpecificationReq(optionSpecificationReq));
+        menu.updateOptionSpecification(optionGroupSpecId, optionSpecId, MenuStructMapper.INSTANCE.toOptionSpecification(optionSpecificationReq));
     }
 
     public boolean deleteOptionSpecification(Long menuId, Long optionGroupSpecId, Long optionSpecId) {
